@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useReducedMotion } from "framer-motion";
+import { KeyboardEvent, useState } from "react";
 
 const experience = {
   title: "My experience",
@@ -10,7 +11,7 @@ const experience = {
   items: [
     { year: "2022 - Present", position: "Full Stack Developer", company: "Self-Study" },
     { year: "2025 - 2025", position: "Front-End Developer Intern", company: "Information Technology Institute (ITI)" },
-    { year: "2021 - 2025", position: "AI Engineer", company: "Bachelor’s Degree (ERU)" },
+    { year: "2021 - 2025", position: "AI Engineer", company: "Bachelor's Degree (ERU)" },
     { year: "2024 - Present", position: "UI/UX Designer", company: "Freelance" },
   ],
 };
@@ -50,23 +51,60 @@ const skills = {
     },
     {
       name: "React",
-      icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38a2.167 2.167 0 0 0-1.088-.278z" /></svg>,
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" className="w-10 h-10">
+          <ellipse cx="12" cy="12" rx="10" ry="4.15" />
+          <ellipse cx="12" cy="12" rx="10" ry="4.15" transform="rotate(60 12 12)" />
+          <ellipse cx="12" cy="12" rx="10" ry="4.15" transform="rotate(120 12 12)" />
+          <circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none" />
+        </svg>
+      ),
     },
     {
       name: "Next.js",
-      icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10"><path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z" /></svg>,
+      icon: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+          <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+          <path d="M7.7 7.7h2.05l6.82 10.15h-2.05L7.7 7.7Zm6.56 0h1.86v8.6l-1.86-2.77V7.7Z" />
+        </svg>
+      ),
     },
     {
       name: "Node.js",
-      icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10"><path d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.197.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.192-.137-.242l-8.791-5.072c-.081-.047-.189-.047-.271 0L3.075 6.68C2.99 6.729 2.936 6.825 2.936 6.921v10.15c0 .097.054.189.139.235l2.409 1.392c1.307.654 2.108-.116 2.108-.89V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.112.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L2.28 18.675c-.57-.329-.922-.945-.922-1.604V6.921c0-.659.353-1.275.922-1.603l8.795-5.082c.557-.315 1.296-.315 1.848 0l8.794 5.082c.57.329.924.944.924 1.603v10.15c0 .659-.354 1.275-.924 1.604l-8.794 5.078C12.643 23.916 12.324 24 11.998 24z" /></svg>,
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" className="w-10 h-10">
+          <path d="M12 2.4 20.1 7v10L12 21.6 3.9 17V7L12 2.4Z" />
+          <path d="M8.2 15.8V8.2l7.6 7.6V8.2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ),
     },
     {
       name: "Python",
-      icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10"><path d="M12 0C8 0 8 2 8 2v2h8V2s0-2-4-2z" /></svg>
+      icon: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+          <path d="M11.92 2.1c-4.1 0-3.85 1.78-3.85 1.78v1.84h3.92v.56H6.5S3 5.88 3 10.17c0 4.29 3.05 4.14 3.05 4.14h1.82v-2.56s-.1-3.04 2.98-3.04h3.88s2.73.04 2.73-2.64V3.88s.41-1.78-5.54-1.78Zm-2.13 1.6a.72.72 0 1 1 0 1.44.72.72 0 0 1 0-1.44Z" />
+          <path d="M12.08 21.9c4.1 0 3.85-1.78 3.85-1.78v-1.84h-3.92v-.56h5.49s3.5.4 3.5-3.89c0-4.29-3.05-4.14-3.05-4.14h-1.82v2.56s.1 3.04-2.98 3.04H9.27s-2.73-.04-2.73 2.64v2.19s-.41 1.78 5.54 1.78Zm2.13-1.6a.72.72 0 1 1 0-1.44.72.72 0 0 1 0 1.44Z" />
+        </svg>
+      ),
     },
-    { name: "Figma", icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10"><circle cx="12" cy="6" r="4" /></svg> },
-
-
+    {
+      name: "Figma",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+          <path d="M8 2h4v8H8a4 4 0 0 1 0-8Zm4 0h4a4 4 0 0 1 0 8h-4V2Zm0 8h4a4 4 0 1 1-4 4v-4Zm-4 0h4v8H8a4 4 0 0 1 0-8Zm0 8h4v2a4 4 0 1 1-4-4Z" />
+        </svg>
+      ),
+    },
+    {
+      name: "Adobe XD",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10">
+          <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M7 8.2 10.1 12 7 15.8h2.05l2.05-2.62 2.04 2.62h2.07L12.1 12l3.08-3.8h-2.03L11.1 10.8 9.04 8.2H7Z" fill="currentColor" />
+          <path d="M16.45 9.1h1.62v6.7h-1.62v-.66c-.38.5-.9.76-1.56.76-1.36 0-2.36-1.08-2.36-2.64 0-1.54 1-2.62 2.36-2.62.65 0 1.18.24 1.56.72V9.1Zm-1.14 5.36c.67 0 1.16-.49 1.16-1.2 0-.7-.49-1.18-1.16-1.18-.66 0-1.14.48-1.14 1.18 0 .71.48 1.2 1.14 1.2Z" fill="currentColor" />
+        </svg>
+      ),
+    },
   ],
 };
 
@@ -106,18 +144,22 @@ function InfoCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, delay: index * 0.07 }}
-      className="bg-[#232329] rounded-xl flex flex-col justify-center items-start px-8 py-7 min-h-[150px]"
+      className="bg-[#232329] rounded-xl min-h-[176px] px-8 md:px-9 py-7 flex items-center"
     >
-      <div className="w-full flex flex-col gap-3">
-        <span className="text-accent text-[13px] font-semibold tracking-wider">
+      <div className="w-full flex flex-col text-left justify-center gap-3.5">
+        <span className="text-accent text-[12px] font-semibold tracking-wider leading-none">
           {year}
         </span>
-        <h4 className="text-[17px] font-bold text-white leading-snug">
+
+        <h4 className="text-[16px] font-bold text-white leading-snug">
           {title}
         </h4>
-        <div className="flex items-center gap-2.5 w-full">
+
+        <div className="mt-2 flex items-center gap-2.5">
           <span className="w-[6px] h-[6px] rounded-full bg-accent flex-shrink-0" />
-          <p className="text-white/60 text-[13px] font-medium">{subtitle}</p>
+          <p className="text-white/60 text-[12px] font-medium leading-none">
+            {subtitle}
+          </p>
         </div>
       </div>
     </motion.div>
@@ -135,11 +177,11 @@ function SectionHeader({
   line2: string;
 }) {
   return (
-    <div className="mb-12 text-center lg:text-left">
-      <h3 className="text-[30px] font-bold text-white mb-6 leading-tight">
+    <div className="mb-10 text-center lg:text-left">
+      <h3 className="text-[30px] xl:text-[32px] font-bold text-white mb-4 leading-tight">
         {title}
       </h3>
-      <p className="text-white/60 text-[15px] leading-relaxed max-w-[600px] mx-auto lg:mx-0">
+      <p className="text-white/60 text-[14px] leading-[1.8] max-w-[590px] mx-auto lg:mx-0">
         {line1}
         <br />
         {line2}
@@ -150,43 +192,75 @@ function SectionHeader({
 
 export default function ResumePage() {
   const [activeTab, setActiveTab] = useState<Tab>("Experience");
+  const shouldReduceMotion = useReducedMotion();
+
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
+    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+      event.preventDefault();
+      const nextIndex = (currentIndex + 1) % tabs.length;
+      setActiveTab(tabs[nextIndex]);
+    }
+
+    if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      event.preventDefault();
+      const prevIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+      setActiveTab(tabs[prevIndex]);
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      setActiveTab(tabs[0]);
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      setActiveTab(tabs[tabs.length - 1]);
+    }
+  };
 
   return (
     <motion.section
-      initial={{ opacity: 0 }}
+      initial={shouldReduceMotion ? false : { opacity: 0 }}
       animate={{
         opacity: 1,
-        transition: { delay: 0.4, duration: 0.4, ease: "easeIn" },
+        transition: shouldReduceMotion
+          ? { duration: 0 }
+          : { delay: 0.4, duration: 0.4, ease: "easeIn" },
       }}
-      className="w-full min-h-screen flex items-start justify-center pb-20"
-      style={{ paddingTop: '140px' }}
+      className="w-full min-h-screen flex items-start justify-center section-pad overflow-hidden"
     >
-      <div className="max-w-[1140px] w-full mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-16">
+      <div className="site-shell">
+        <div className="flex flex-col lg:flex-row gap-11 xl:gap-16">
           {/* ── Left column ── */}
-          <div className="w-full lg:w-[35%] flex-shrink-0 flex flex-col gap-8">
+          <div className="w-full lg:w-[34%] flex-shrink-0 flex flex-col gap-7">
             {/* Heading & paragraph */}
             <div className="text-center lg:text-left">
-              <h2 className="text-[34px] lg:text-[38px] font-bold text-white leading-tight mb-6">
-                Why hire me?
-              </h2>
-              <p className="text-white/60 text-[15px] leading-relaxed">
-                I build modern, responsive web applications
-                <br />
-                with strong focus on UI/UX and performance.
-              </p>
-            </div>
+            <h2 className="text-[34px] lg:text-[38px] font-bold text-white leading-[1.08] mb-4">
+            Why hire me?
+            </h2>
+            <p className="text-white/60 text-[14px] leading-[1.75] max-w-[420px] mx-auto lg:mx-0">
+              I build modern, responsive web applications
+              <br />
+              with strong focus on UI/UX and performance.
+            </p>
+          </div>
 
             {/* Tab buttons */}
-            <div className="flex flex-col gap-4">
-              {tabs.map((tab) => (
+            <div className="flex flex-col gap-3" role="tablist" aria-orientation="vertical" aria-label="Resume sections">
+              {tabs.map((tab, index) => (
                 <button
                   key={tab}
-                  className={`w-full h-[54px] rounded-lg px-6 text-[15px] font-semibold transition-all duration-300 flex items-center justify-center ${activeTab === tab
+                  id={`resume-tab-${tab.toLowerCase().replace(/\s+/g, "-")}`}
+                  role="tab"
+                  aria-selected={activeTab === tab}
+                  aria-controls={`resume-panel-${tab.toLowerCase().replace(/\s+/g, "-")}`}
+                  tabIndex={activeTab === tab ? 0 : -1}
+                  className={`w-full h-[52px] rounded-lg px-6 text-[14px] font-semibold transition-all duration-300 flex items-center justify-center text-center ${activeTab === tab
                     ? "bg-accent text-[#1c1c22]"
                     : "bg-[#232329] text-white/60 hover:text-white/100 hover:bg-[#2c2c35]"
                     }`}
                   onClick={() => setActiveTab(tab)}
+                  onKeyDown={(event) => handleTabKeyDown(event, index)}
                 >
                   {tab}
                 </button>
@@ -195,16 +269,19 @@ export default function ResumePage() {
           </div>
 
           {/* ── Right column ── */}
-          <div className="w-full lg:w-[65%]">
+          <div className="w-full lg:w-[66%] soft-glow">
             <AnimatePresence mode="wait">
               {/* Experience */}
               {activeTab === "Experience" && (
                 <motion.div
                   key="experience"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.25 }}
+                  id="resume-panel-experience"
+                  role="tabpanel"
+                  aria-labelledby="resume-tab-experience"
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
                   className="w-full"
                 >
                   <SectionHeader
@@ -212,10 +289,10 @@ export default function ResumePage() {
                     line1={experience.descLine1}
                     line2={experience.descLine2}
                   />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 relative z-10">
                     {experience.items.map((item, i) => (
                       <InfoCard
-                        key={i}
+                        key={`${item.year}-${item.position}-${item.company}`}
                         year={item.year}
                         title={item.position}
                         subtitle={item.company}
@@ -230,10 +307,13 @@ export default function ResumePage() {
               {activeTab === "Education" && (
                 <motion.div
                   key="education"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.25 }}
+                  id="resume-panel-education"
+                  role="tabpanel"
+                  aria-labelledby="resume-tab-education"
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
                   className="w-full"
                 >
                   <SectionHeader
@@ -241,10 +321,10 @@ export default function ResumePage() {
                     line1={education.descLine1}
                     line2={education.descLine2}
                   />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 relative z-10">
                     {education.items.map((item, i) => (
                       <InfoCard
-                        key={i}
+                        key={`${item.year}-${item.position}-${item.company}`}
                         year={item.year}
                         title={item.position}
                         subtitle={item.company}
@@ -259,10 +339,13 @@ export default function ResumePage() {
               {activeTab === "Skills" && (
                 <motion.div
                   key="skills"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.25 }}
+                  id="resume-panel-skills"
+                  role="tabpanel"
+                  aria-labelledby="resume-tab-skills"
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
                   className="w-full"
                 >
                   <SectionHeader
@@ -270,11 +353,11 @@ export default function ResumePage() {
                     line1={skills.descLine1}
                     line2={skills.descLine2}
                   />
-                  <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:gap-[30px] gap-6">
-                    {skills.skillList.map((skill, index) => (
-                      <li key={index}>
+                  <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:gap-5 gap-4 relative z-10">
+                    {skills.skillList.map((skill) => (
+                      <li key={skill.name}>
                         <div
-                          className="w-full bg-[#232329] h-[150px] rounded-xl flex justify-center items-center group relative cursor-pointer"
+                          className="w-full bg-[#232329] h-[132px] rounded-xl border border-white/5 flex justify-center items-center group relative cursor-pointer transition-colors duration-300 hover:border-accent/45"
                         >
                           <div className="text-white/60 group-hover:text-accent transition-all duration-300">
                             {skill.icon}
@@ -293,10 +376,13 @@ export default function ResumePage() {
               {activeTab === "About me" && (
                 <motion.div
                   key="about"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.25 }}
+                  id="resume-panel-about-me"
+                  role="tabpanel"
+                  aria-labelledby="resume-tab-about-me"
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
                   className="w-full"
                 >
                   <SectionHeader
@@ -304,11 +390,11 @@ export default function ResumePage() {
                     line1={aboutItems.descLine1}
                     line2={aboutItems.descLine2}
                   />
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 max-w-[620px] mx-auto lg:mx-0">
-                    {aboutItems.info.map((item, index) => (
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-12 max-w-[650px] mx-auto lg:mx-0 relative z-10">
+                    {aboutItems.info.map((item) => (
                       <li
-                        key={index}
-                        className="flex items-center justify-center xl:justify-start gap-4"
+                        key={item.label}
+                        className="flex items-center justify-center xl:justify-start gap-4 min-h-[34px]"
                       >
                         <span className="text-white/60 text-sm">
                           {item.label}

@@ -96,7 +96,7 @@ export default function Hero() {
 
           {/* Main heading */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-3">
-            Hello I'm
+            Hello I&apos;m
           </h1>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#00ff9d] leading-tight mb-6">
             Luke Coleman

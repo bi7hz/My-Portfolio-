@@ -4,11 +4,17 @@
   --background: #1c1c22;
   --foreground: #ffffff;
   --accent: #00ff99;
+  --panel: #232329;
+  --panel-2: #27272c;
+  --muted: rgba(255, 255, 255, 0.6);
+  --muted-strong: rgba(255, 255, 255, 0.75);
 }
 
 @theme {
   --color-accent: #00ff99;
   --color-accent-hover: #00e187;
+  --color-primary: #1c1c22;
+  --color-panel: #232329;
 }
 
 @utility text-outline {
@@ -27,13 +33,75 @@ html, body {
   overflow-x: hidden;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #1c1c22; }
 ::-webkit-scrollbar-thumb { background: #27272c; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+
+.site-shell {
+  max-width: 1200px;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 1280px) {
+  .site-shell {
+    padding-inline: 0;
+  }
+}
+
+.section-pad {
+  padding-top: 8.75rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 1280px) {
+  .section-pad {
+    padding-top: 10rem;
+    padding-bottom: 5.5rem;
+  }
+}
+
+.soft-glow {
+  position: relative;
+}
+
+.soft-glow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(0, 255, 153, 0.09) 0%, rgba(0, 255, 153, 0) 72%);
+  filter: blur(46px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-kicker {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.surface-card {
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+}

@@ -93,7 +93,7 @@ export default function Contact() {
         className="mb-12"
       >
         <h2 className="text-3xl sm:text-4xl font-bold text-white">
-          Let's work together
+          Let&apos;s work together
         </h2>
       </motion.div>
 

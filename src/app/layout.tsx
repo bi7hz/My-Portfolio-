@@ -10,7 +10,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Luke. - Portfolio",
+  title: "Bilal. - Portfolio",
   description: "Personal portfolio built with Next.js and Tailwind CSS",
 };
 

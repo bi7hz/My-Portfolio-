@@ -11,7 +11,7 @@ const info = [
       </svg>
     ),
     title: "Phone",
-    description: "(+1) 234 567 890",
+    description: "(+20) 114 232 1320",
   },
   {
     icon: (
@@ -21,7 +21,7 @@ const info = [
       </svg>
     ),
     title: "Email",
-    description: "luke@example.com",
+    description: "bilal7haider7@gmail.com",
   },
   {
     icon: (
@@ -31,7 +31,7 @@ const info = [
       </svg>
     ),
     title: "Address",
-    description: "Sydney, Australia",
+    description: "Cairo, Egypt",
   },
 ];
 
@@ -48,15 +48,15 @@ export default function ContactPage() {
     <motion.section
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { delay: 0.4, duration: 0.4, ease: "easeIn" } }}
-      className="py-32 xl:pt-40 min-h-screen"
+      className="section-pad min-h-screen overflow-hidden"
     >
-      <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-        <div className="flex flex-col xl:flex-row gap-[30px]">
+      <div className="site-shell">
+        <div className="flex flex-col lg:flex-row gap-10 xl:gap-14 soft-glow">
           {/* form */}
-          <div className="xl:w-[54%] order-2 xl:order-none">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl">
-              <h3 className="text-4xl text-accent font-bold">Let's work together</h3>
-              <p className="text-white/60 text-[15px]">
+          <div className="lg:w-[55%] order-2 lg:order-none relative z-10">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-7 p-9 sm:p-10 xl:p-12 bg-[#27272c] rounded-[18px] border border-white/10">
+              <h3 className="text-[32px] sm:text-[36px] text-accent font-bold leading-tight">Let&apos;s work together</h3>
+              <p className="text-white/60 text-[14px] leading-[1.8] max-w-[560px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque consequat, faucibus et, et.
               </p>
               
@@ -66,30 +66,30 @@ export default function ContactPage() {
                   type="text" 
                   placeholder="Firstname" 
                   required
-                  className="flex h-[55px] w-full rounded-md border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-white/60 placeholder:text-white/60 outline-none transition-all" 
+                  className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
                 <input 
                   type="text" 
                   placeholder="Lastname" 
                   required
-                  className="flex h-[55px] w-full rounded-md border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-white/60 placeholder:text-white/60 outline-none transition-all" 
+                  className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
                 <input 
                   type="email" 
                   placeholder="Email address" 
                   required
-                  className="flex h-[55px] w-full rounded-md border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-white/60 placeholder:text-white/60 outline-none transition-all" 
+                  className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
                 <input 
                   type="tel" 
                   placeholder="Phone number" 
-                  className="flex h-[55px] w-full rounded-md border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-white/60 placeholder:text-white/60 outline-none transition-all" 
+                  className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
               </div>
 
               {/* select placeholder */}
               <div className="relative">
-                <select defaultValue="" className="flex h-[55px] w-full rounded-md border border-white/10 focus:border-accent bg-[#1c1c22] px-4 text-white/60 outline-none transition-all appearance-none cursor-pointer">
+                <select defaultValue="" className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 text-[14px] text-white/70 outline-none transition-all appearance-none cursor-pointer">
                   <option value="" disabled>Select a service</option>
                   <option value="web">Web Development</option>
                   <option value="ui">UI/UX Design</option>
@@ -108,13 +108,13 @@ export default function ContactPage() {
                 placeholder="Type your message here." 
                 rows={5}
                 required
-                className="flex w-full rounded-md border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-white/60 placeholder:text-white/60 outline-none transition-all resize-none"
+                className="flex w-full min-h-[154px] rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all resize-none"
               ></textarea>
 
               {/* btn */}
               <button 
                 type="submit" 
-                className="max-w-40 bg-accent hover:bg-accent-hover text-[#1c1c22] h-[55px] px-8 rounded-full font-bold flex justify-center items-center transition-all duration-300"
+                className="max-w-44 bg-accent hover:bg-accent-hover text-[#1c1c22] h-[54px] px-8 rounded-full font-bold text-[14px] flex justify-center items-center transition-all duration-300"
               >
                 {formState ? "Sent!" : "Send message"}
               </button>
@@ -122,17 +122,17 @@ export default function ContactPage() {
           </div>
 
           {/* info */}
-          <div className="flex-1 flex items-center xl:justify-end order-1 xl:order-none mb-8 xl:mb-0">
-            <ul className="flex flex-col gap-10">
+          <div className="flex-1 flex items-center lg:justify-end order-1 lg:order-none mb-8 lg:mb-0 relative z-10">
+            <ul className="flex flex-col gap-7 w-full max-w-[420px]">
               {info.map((item, index) => {
                 return (
-                  <li key={index} className="flex items-center gap-6">
-                    <div className="w-[52px] h-[52px] xl:w-[72px] xl:h-[72px] bg-[#27272c] text-accent rounded-md flex justify-center items-center">
-                      <div className="text-[28px]">{item.icon}</div>
+                  <li key={index} className="flex items-center gap-5">
+                    <div className="w-[56px] h-[56px] lg:w-[62px] lg:h-[62px] bg-[#27272c] text-accent rounded-xl flex justify-center items-center border border-white/10">
+                      <div className="text-[24px]">{item.icon}</div>
                     </div>
                     <div className="flex flex-col">
-                      <p className="text-white/60 text-[15px]">{item.title}</p>
-                      <h3 className="text-xl font-medium">{item.description}</h3>
+                      <p className="text-white/60 text-[14px]">{item.title}</p>
+                      <h3 className="text-[17px] sm:text-[19px] font-medium break-words">{item.description}</h3>
                     </div>
                   </li>
                 );
