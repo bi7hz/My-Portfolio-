@@ -7,10 +7,22 @@ import Image from "next/image";
 import thumb1 from "../../../assets/work/thumb1.png";
 import thumb2 from "../../../assets/work/thumb2.png";
 import thumb3 from "../../../assets/work/thumb3.png";
+import kinovaClub from "../../../assets/work/KINOVA CLUB.png";
 
 const projects = [
   {
     num: "01",
+    category: "Fitness Platform",
+    title: "KINOVA CLUB",
+    description: "A premium bilingual fitness membership platform with immersive visuals, dynamic interactions, and a modern responsive experience.",
+    tech: "Next.js, TypeScript, Tailwind CSS",
+    live: "https://kinova-club.vercel.app/#home",
+    github: "https://github.com/bi7hz/Kinova-Club",
+    image: kinovaClub,
+    external: true,
+  },
+  {
+    num: "02",
     category: "Full Stack",
     title: "E-Commerce Platform",
     description: "A full-stack e-commerce solution with real-time inventory management, secure payment processing, and an intuitive admin dashboard built for scale.",
@@ -20,7 +32,7 @@ const projects = [
     image: thumb1,
   },
   {
-    num: "02",
+    num: "03",
     category: "Frontend",
     title: "Portfolio Dashboard",
     description: "A beautifully designed analytics dashboard for tracking projects, skills, and professional growth with interactive data visualisations.",
@@ -30,7 +42,7 @@ const projects = [
     image: thumb2,
   },
   {
-    num: "03",
+    num: "04",
     category: "Landing Page",
     title: "SaaS Landing Page",
     description: "A high-converting SaaS landing page with interactive animations, feature showcases, and a seamless onboarding flow optimised for conversions.",
@@ -81,7 +93,7 @@ export default function WorkPage() {
               
               {/* buttons */}
               <div className="flex items-center gap-4 mt-2">
-                <Link href={project.live} aria-label={`${project.title} live project`} className="group/action relative w-[56px] h-[56px] rounded-full bg-[#232329] border border-white/5 flex justify-center items-center text-white hover:text-accent hover:border-accent/45 transition-all duration-300">
+                <Link href={project.live} target={project.external ? "_blank" : undefined} rel={project.external ? "noopener noreferrer" : undefined} aria-label={`${project.title} live project`} className="group/action relative w-[56px] h-[56px] rounded-full bg-[#232329] border border-white/5 flex justify-center items-center text-white hover:text-accent hover:border-accent/45 transition-all duration-300">
                   <span className="absolute -top-9 left-1/2 -translate-x-1/2 rounded-md bg-white px-3 py-1 text-[11px] font-semibold text-[#1c1c22] opacity-0 translate-y-1 pointer-events-none whitespace-nowrap transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-y-0">
                     Live Project
                   </span>
@@ -90,7 +102,7 @@ export default function WorkPage() {
                     <path d="M9 7h8v8" />
                   </svg>
                 </Link>
-                <Link href={project.github} aria-label={`${project.title} GitHub`} className="group/action relative w-[56px] h-[56px] rounded-full bg-[#232329] border border-white/5 flex justify-center items-center text-white hover:text-accent hover:border-accent/45 transition-all duration-300">
+                <Link href={project.github} target={project.external ? "_blank" : undefined} rel={project.external ? "noopener noreferrer" : undefined} aria-label={`${project.title} GitHub`} className="group/action relative w-[56px] h-[56px] rounded-full bg-[#232329] border border-white/5 flex justify-center items-center text-white hover:text-accent hover:border-accent/45 transition-all duration-300">
                   <span className="absolute -top-9 left-1/2 -translate-x-1/2 rounded-md bg-white px-3 py-1 text-[11px] font-semibold text-[#1c1c22] opacity-0 translate-y-1 pointer-events-none whitespace-nowrap transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-y-0">
                     GitHub
                   </span>
