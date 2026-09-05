@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState, type WheelEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import thumb1 from "../../../assets/work/thumb1.png";
@@ -12,6 +12,17 @@ import kinovaClub from "../../../assets/work/KINOVA CLUB.png";
 const projects = [
   {
     num: "01",
+    category: "E-Commerce / Web Development",
+    title: "VANTA — E-Commerce Store",
+    description: "A premium streetwear storefront with responsive browsing, category and sale filtering, dynamic product pages, and a persistent client-side cart.",
+    tech: "Next.js 16, React 19, TypeScript, CSS, LocalStorage, Git, GitHub, Vercel",
+    live: "https://vanta-ecommerce.vercel.app/",
+    github: "https://github.com/bi7hz/vanta-ecommerce",
+    image: "/projects/vanta-ecommerce.webp",
+    external: true,
+  },
+  {
+    num: "02",
     category: "Fitness Platform",
     title: "KINOVA CLUB",
     description: "A premium bilingual fitness membership platform with immersive visuals, dynamic interactions, and a modern responsive experience.",
@@ -22,7 +33,7 @@ const projects = [
     external: true,
   },
   {
-    num: "02",
+    num: "03",
     category: "Full Stack",
     title: "E-Commerce Platform",
     description: "A full-stack e-commerce solution with real-time inventory management, secure payment processing, and an intuitive admin dashboard built for scale.",
@@ -32,7 +43,7 @@ const projects = [
     image: thumb1,
   },
   {
-    num: "03",
+    num: "04",
     category: "Frontend",
     title: "Portfolio Dashboard",
     description: "A beautifully designed analytics dashboard for tracking projects, skills, and professional growth with interactive data visualisations.",
@@ -42,7 +53,7 @@ const projects = [
     image: thumb2,
   },
   {
-    num: "04",
+    num: "05",
     category: "Landing Page",
     title: "SaaS Landing Page",
     description: "A high-converting SaaS landing page with interactive animations, feature showcases, and a seamless onboarding flow optimised for conversions.",
@@ -55,9 +66,65 @@ const projects = [
 
 export default function WorkPage() {
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
+  const [isDragging, setIsDragging] = useState(false);
+  const navigationLocked = useRef(false);
+  const navigationLockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wheelResetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wheelDistance = useRef(0);
 
-  const prev = () => setCurrent((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
-  const next = () => setCurrent((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+  useEffect(() => {
+    return () => {
+      if (navigationLockTimer.current) clearTimeout(navigationLockTimer.current);
+      if (wheelResetTimer.current) clearTimeout(wheelResetTimer.current);
+    };
+  }, []);
+
+  const prev = () => {
+    setDirection("prev");
+    setCurrent((projectIndex) => (projectIndex === 0 ? projects.length - 1 : projectIndex - 1));
+  };
+
+  const next = () => {
+    setDirection("next");
+    setCurrent((projectIndex) => (projectIndex === projects.length - 1 ? 0 : projectIndex + 1));
+  };
+
+  const lockNavigation = () => {
+    if (navigationLocked.current) return false;
+
+    navigationLocked.current = true;
+    if (navigationLockTimer.current) clearTimeout(navigationLockTimer.current);
+    navigationLockTimer.current = setTimeout(() => {
+      navigationLocked.current = false;
+    }, 500);
+
+    return true;
+  };
+
+  const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
+    const isHorizontalGesture = Math.abs(event.deltaX) > Math.abs(event.deltaY);
+    if (!isHorizontalGesture) return;
+
+    event.preventDefault();
+    wheelDistance.current += event.deltaX;
+
+    if (wheelResetTimer.current) clearTimeout(wheelResetTimer.current);
+    wheelResetTimer.current = setTimeout(() => {
+      wheelDistance.current = 0;
+    }, 160);
+
+    if (Math.abs(wheelDistance.current) < 60 || !lockNavigation()) return;
+
+    const wheelDirection = wheelDistance.current > 0 ? "next" : "prev";
+    wheelDistance.current = 0;
+    if (wheelDirection === "next") {
+      next();
+      return;
+    }
+
+    prev();
+  };
 
   const project = projects[current];
 
@@ -76,6 +143,10 @@ export default function WorkPage() {
               <div className="text-7xl xl:text-8xl leading-none font-extrabold text-transparent text-outline">
                 {project.num}
               </div>
+
+              <p className="text-accent text-[12px] font-semibold uppercase tracking-[0.16em] -mt-1">
+                {project.category}
+              </p>
 
               {/* title */}
               <h2 className="text-[36px] xl:text-[42px] font-bold leading-tight text-white group-hover:text-accent transition-all duration-500 capitalize">
@@ -116,17 +187,48 @@ export default function WorkPage() {
           
           {/* Slider Content */}
           <div className="w-full lg:w-[52%] order-1 lg:order-none mb-12 lg:mb-0 relative min-h-[390px] z-10">
-            <div className="h-[360px] sm:h-[430px] xl:h-[460px] relative group flex justify-center items-center bg-[#232329] rounded-[18px] border border-white/10 overflow-hidden">
-               <Image
-                 fill
-                 src={project.image}
-                 alt={project.title}
-                 className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                 sizes="(min-width: 1280px) 600px, 100vw"
-                 priority
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c22]/35 via-transparent to-transparent" />
-            </div>
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: -90, right: 90 }}
+              dragElastic={0.14}
+              dragMomentum={false}
+              dragSnapToOrigin
+              whileDrag={{ opacity: 0.94, scale: 0.99 }}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={(_, info) => {
+                setIsDragging(false);
+                if (Math.abs(info.offset.x) < 64 || !lockNavigation()) return;
+                if (info.offset.x < 0) {
+                  next();
+                  return;
+                }
+
+                prev();
+              }}
+              onWheel={handleWheel}
+              style={{ cursor: isDragging ? "grabbing" : "grab", touchAction: "pan-y" }}
+              className="group relative flex h-[360px] w-full select-none items-center justify-center overflow-hidden rounded-[18px] border border-white/10 bg-[#232329] sm:h-[430px] xl:h-[460px]"
+              aria-label="Drag left or right to browse projects"
+            >
+              <motion.div
+                key={project.num}
+                initial={{ opacity: 0, x: direction === "next" ? 18 : -18 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="absolute inset-0"
+              >
+                <Image
+                  fill
+                  src={project.image}
+                  alt={project.title}
+                  draggable={false}
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  sizes="(min-width: 1280px) 600px, 100vw"
+                  preload={current === 0}
+                />
+              </motion.div>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1c1c22]/35 via-transparent to-transparent" />
+            </motion.div>
 
             {/* Slider navigation buttons */}
             <div className="absolute right-0 bottom-[calc(50%_-_22px)] lg:bottom-0 lg:w-max z-20 flex gap-2 w-full justify-between lg:w-fit lg:justify-none lg:right-1/2 lg:translate-x-1/2 mt-8">
