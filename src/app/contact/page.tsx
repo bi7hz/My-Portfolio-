@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
+
+type FormStatus = "idle" | "success" | "error";
 
 const info = [
   {
@@ -36,12 +38,60 @@ const info = [
 ];
 
 export default function ContactPage() {
-  const [formState, setFormState] = useState(false);
+  const submissionInFlightRef = useRef(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<FormStatus>("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormState(true);
-    setTimeout(() => setFormState(false), 3000);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (submissionInFlightRef.current) return;
+
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const formData = new FormData(form);
+    const requiredValues = ["firstName", "lastName", "email", "message"].map((field) =>
+      String(formData.get(field) ?? "").trim(),
+    );
+
+    if (requiredValues.some((value) => value.length === 0)) {
+      setFormStatus("error");
+      return;
+    }
+
+    submissionInFlightRef.current = true;
+    setIsSubmitting(true);
+    setFormStatus("idle");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          service: formData.get("service"),
+          message: formData.get("message"),
+          website: formData.get("website"),
+          submissionId: crypto.randomUUID(),
+        }),
+      });
+
+      if (!response.ok) throw new Error("Contact request failed.");
+
+      form.reset();
+      setFormStatus("success");
+    } catch {
+      setFormStatus("error");
+    } finally {
+      submissionInFlightRef.current = false;
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -63,24 +113,28 @@ export default function ContactPage() {
               {/* inputs */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input 
+                  name="firstName"
                   type="text" 
                   placeholder="Firstname" 
                   required
                   className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
                 <input 
+                  name="lastName"
                   type="text" 
                   placeholder="Lastname" 
                   required
                   className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
                 <input 
+                  name="email"
                   type="email" 
                   placeholder="Email address" 
                   required
                   className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
                 <input 
+                  name="phone"
                   type="tel" 
                   placeholder="Phone number" 
                   className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
@@ -89,7 +143,7 @@ export default function ContactPage() {
 
               {/* select placeholder */}
               <div className="relative">
-                <select defaultValue="" className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 text-[14px] text-white/70 outline-none transition-all appearance-none cursor-pointer">
+                <select name="service" defaultValue="" className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 text-[14px] text-white/70 outline-none transition-all appearance-none cursor-pointer">
                   <option value="" disabled>Select a service</option>
                   <option value="web">Web Development</option>
                   <option value="ui">UI/UX Design</option>
@@ -105,19 +159,42 @@ export default function ContactPage() {
 
               {/* textarea */}
               <textarea 
+                name="message"
                 placeholder="Type your message here." 
                 rows={5}
                 required
                 className="flex w-full min-h-[154px] rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all resize-none"
               ></textarea>
 
+              <div className="absolute left-[-9999px] h-px w-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+              </div>
+
               {/* btn */}
-              <button 
-                type="submit" 
-                className="max-w-44 bg-accent hover:bg-accent-hover text-[#1c1c22] h-[54px] px-8 rounded-full font-bold text-[14px] flex justify-center items-center transition-all duration-300"
-              >
-                {formState ? "Sent!" : "Send message"}
-              </button>
+              <div className="flex flex-col items-start gap-3">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
+                  className="max-w-44 bg-accent hover:bg-accent-hover text-[#1c1c22] h-[54px] px-8 rounded-full font-bold text-[14px] flex justify-center items-center transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {isSubmitting ? "SENDING..." : "Send message"}
+                </button>
+                {formStatus !== "idle" && (
+                  <p
+                    role={formStatus === "error" ? "alert" : "status"}
+                    aria-live="polite"
+                    className={`text-[13px] leading-relaxed ${
+                      formStatus === "success" ? "text-accent" : "text-[#ff8a8a]"
+                    }`}
+                  >
+                    {formStatus === "success"
+                      ? "Message sent successfully. I'll get back to you soon."
+                      : "Something went wrong. Please try again."}
+                  </p>
+                )}
+              </div>
             </form>
           </div>
 

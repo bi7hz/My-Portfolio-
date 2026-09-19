@@ -15,7 +15,7 @@ const projects = [
     category: "E-Commerce / Web Development",
     title: "VANTA — E-Commerce Store",
     description: "A premium streetwear storefront with responsive browsing, category and sale filtering, dynamic product pages, and a persistent client-side cart.",
-    tech: "Next.js 16, React 19, TypeScript, CSS, LocalStorage, Git, GitHub, Vercel",
+    tech: "Next.js 16, React 19, TypeScript, CSS",
     live: "https://vanta-ecommerce.vercel.app/",
     github: "https://github.com/bi7hz/vanta-ecommerce",
     image: "/projects/vanta-ecommerce.webp",
