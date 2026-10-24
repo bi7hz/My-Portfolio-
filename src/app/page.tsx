@@ -90,7 +90,7 @@ const whatsappSocial = socials.find((social) => {
 });
 if (whatsappSocial) {
   whatsappSocial.name = "whatsapp";
-  whatsappSocial.href = "https://wa.me/201142321320";
+  whatsappSocial.href = "https://wa.me/963968045490";
 }
 
 const stats = [
