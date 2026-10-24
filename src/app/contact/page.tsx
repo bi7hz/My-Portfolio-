@@ -13,7 +13,7 @@ const info = [
       </svg>
     ),
     title: "Phone",
-    description: "(+20) 114 232 1320",
+    description: "(+963) 968 045 490",
   },
   {
     icon: (
