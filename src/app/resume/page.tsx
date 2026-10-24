@@ -114,10 +114,10 @@ const aboutItems = {
   descLine2: "Focused on creating intelligent, responsive, and user-friendly applications.",
   info: [
     { label: "Name", value: "Bilal Haider Mando" },
-    { label: "Experience", value: "2 Years" },
+    { label: "Experience", value: "3 Years" },
     { label: "Nationality", value: "Syrian" },
     { label: "Freelance", value: "Available" },
-    { label: "Phone", value: "(+20) 114 232 1320" },
+    { label: "Phone", value: "(+963) 968 045 490" },
     { label: "Email", value: "bilal7haider7@gmail.com" },
     { label: "Degree", value: "BSc in Artificial Intelligence" },
     { label: "Languages", value: "Arabic, English" },
