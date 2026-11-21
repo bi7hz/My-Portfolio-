@@ -38,8 +38,8 @@ const projects = [
     title: "E-Commerce Platform",
     description: "A full-stack e-commerce solution with real-time inventory management, secure payment processing, and an intuitive admin dashboard built for scale.",
     tech: "Next.js, TypeScript, Tailwind CSS, Stripe",
-    live: "#",
-    github: "#",
+    live: null,
+    github: null,
     image: thumb1,
   },
   {
@@ -48,8 +48,8 @@ const projects = [
     title: "Portfolio Dashboard",
     description: "A beautifully designed analytics dashboard for tracking projects, skills, and professional growth with interactive data visualisations.",
     tech: "React, Framer Motion, Node.js, MongoDB",
-    live: "#",
-    github: "#",
+    live: null,
+    github: null,
     image: thumb2,
   },
   {
@@ -58,8 +58,8 @@ const projects = [
     title: "SaaS Landing Page",
     description: "A high-converting SaaS landing page with interactive animations, feature showcases, and a seamless onboarding flow optimised for conversions.",
     tech: "Next.js, Tailwind CSS, Framer Motion",
-    live: "#",
-    github: "#",
+    live: null,
+    github: null,
     image: thumb3,
   },
 ];
@@ -149,9 +149,9 @@ export default function WorkPage() {
               </p>
 
               {/* title */}
-              <h2 className="text-[36px] xl:text-[42px] font-bold leading-tight text-white group-hover:text-accent transition-all duration-500 capitalize">
+              <h1 className="text-[36px] xl:text-[42px] font-bold leading-tight text-white group-hover:text-accent transition-all duration-500 capitalize">
                 {project.title}
-              </h2>
+              </h1>
 
               {/* description */}
               <p className="text-white/60 text-[14px] leading-[1.85] max-w-[560px]">{project.description}</p>
@@ -164,23 +164,27 @@ export default function WorkPage() {
               
               {/* buttons */}
               <div className="flex items-center gap-4 mt-2">
-                <Link href={project.live} target={project.external ? "_blank" : undefined} rel={project.external ? "noopener noreferrer" : undefined} aria-label={`${project.title} live project`} className="group/action relative w-[56px] h-[56px] rounded-full bg-[#232329] border border-white/5 flex justify-center items-center text-white hover:text-accent hover:border-accent/45 transition-all duration-300">
-                  <span className="absolute -top-9 left-1/2 -translate-x-1/2 rounded-md bg-white px-3 py-1 text-[11px] font-semibold text-[#1c1c22] opacity-0 translate-y-1 pointer-events-none whitespace-nowrap transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-y-0">
-                    Live Project
-                  </span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.1} strokeLinecap="round" strokeLinejoin="round" className="w-[22px] h-[22px] transition-transform duration-300 group-hover/action:-translate-y-0.5 group-hover/action:translate-x-0.5">
-                    <path d="M7 17 17 7" />
-                    <path d="M9 7h8v8" />
-                  </svg>
-                </Link>
-                <Link href={project.github} target={project.external ? "_blank" : undefined} rel={project.external ? "noopener noreferrer" : undefined} aria-label={`${project.title} GitHub`} className="group/action relative w-[56px] h-[56px] rounded-full bg-[#232329] border border-white/5 flex justify-center items-center text-white hover:text-accent hover:border-accent/45 transition-all duration-300">
-                  <span className="absolute -top-9 left-1/2 -translate-x-1/2 rounded-md bg-white px-3 py-1 text-[11px] font-semibold text-[#1c1c22] opacity-0 translate-y-1 pointer-events-none whitespace-nowrap transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-y-0">
-                    GitHub
-                  </span>
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-[23px] h-[23px]">
-                    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                  </svg>
-                </Link>
+                {project.live && (
+                  <Link href={project.live} target={project.external ? "_blank" : undefined} rel={project.external ? "noopener noreferrer" : undefined} aria-label={`${project.title} live project`} className="group/action relative w-[56px] h-[56px] rounded-full bg-[#232329] border border-white/5 flex justify-center items-center text-white hover:text-accent hover:border-accent/45 transition-all duration-300">
+                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 rounded-md bg-white px-3 py-1 text-[11px] font-semibold text-[#1c1c22] opacity-0 translate-y-1 pointer-events-none whitespace-nowrap transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-y-0">
+                      Live Project
+                    </span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.1} strokeLinecap="round" strokeLinejoin="round" className="w-[22px] h-[22px] transition-transform duration-300 group-hover/action:-translate-y-0.5 group-hover/action:translate-x-0.5">
+                      <path d="M7 17 17 7" />
+                      <path d="M9 7h8v8" />
+                    </svg>
+                  </Link>
+                )}
+                {project.github && (
+                  <Link href={project.github} target={project.external ? "_blank" : undefined} rel={project.external ? "noopener noreferrer" : undefined} aria-label={`${project.title} GitHub`} className="group/action relative w-[56px] h-[56px] rounded-full bg-[#232329] border border-white/5 flex justify-center items-center text-white hover:text-accent hover:border-accent/45 transition-all duration-300">
+                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 rounded-md bg-white px-3 py-1 text-[11px] font-semibold text-[#1c1c22] opacity-0 translate-y-1 pointer-events-none whitespace-nowrap transition-all duration-200 group-hover/action:opacity-100 group-hover/action:translate-y-0">
+                      GitHub
+                    </span>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-[23px] h-[23px]">
+                      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                    </svg>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${jetbrainsMono.className} bg-[#1c1c22] text-white min-h-screen flex flex-col`}>
         <Navbar />
-        {children}
+        <main className="flex-1">{children}</main>
       </body>
     </html>
   );

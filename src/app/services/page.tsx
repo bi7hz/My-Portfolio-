@@ -8,25 +8,25 @@ const services = [
     num: "01",
     title: "Web Development",
     description: "Building fast, responsive, and scalable web applications using modern technologies, clean architecture, and best UI practices.",
-    href: ""
+    href: "/contact"
   },
   {
     num: "02",
     title: "UI/UX Design",
     description: "Designing intuitive and visually appealing interfaces focused on user experience, accessibility, and modern design trends.",
-    href: ""
+    href: "/contact"
   },
   {
     num: "03",
     title: "Logo Design",
     description: "Creating unique and memorable brand identities with clean, modern logo concepts tailored to your business vision.",
-    href: ""
+    href: "/contact"
   },
   {
     num: "04",
     title: "AI & Machine Learning",
     description: "Developing intelligent solutions using machine learning models, data analysis, and AI tools to automate and enhance digital products.",
-    href: ""
+    href: "/contact"
   },
 ];
 
@@ -62,6 +62,7 @@ export default function ServicesPage() {
                   </div>
                   <Link 
                     href={item.href}
+                    aria-label={`Contact Bilal about ${item.title}`}
                     className="w-[52px] h-[52px] rounded-full bg-white group-hover:bg-accent transition-all duration-500 flex justify-center items-center hover:-rotate-45"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth={2} className="w-6 h-6">

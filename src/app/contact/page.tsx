@@ -105,9 +105,9 @@ export default function ContactPage() {
           {/* form */}
           <div className="lg:w-[55%] order-2 lg:order-none relative z-10">
             <form onSubmit={handleSubmit} className="flex flex-col gap-7 p-9 sm:p-10 xl:p-12 bg-[#27272c] rounded-[18px] border border-white/10">
-              <h3 className="text-[32px] sm:text-[36px] text-accent font-bold leading-tight">Let&apos;s work together</h3>
+              <h1 className="text-[32px] sm:text-[36px] text-accent font-bold leading-tight">Let&apos;s work together</h1>
               <p className="text-white/60 text-[14px] leading-[1.8] max-w-[560px]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque consequat, faucibus et, et.
+                Have a web application, interface, or AI-powered idea in mind? Share the details and I&apos;ll get back to you.
               </p>
               
               {/* inputs */}
@@ -116,6 +116,7 @@ export default function ContactPage() {
                   name="firstName"
                   type="text" 
                   placeholder="Firstname" 
+                  aria-label="First name"
                   required
                   className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
@@ -123,6 +124,7 @@ export default function ContactPage() {
                   name="lastName"
                   type="text" 
                   placeholder="Lastname" 
+                  aria-label="Last name"
                   required
                   className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
@@ -130,6 +132,7 @@ export default function ContactPage() {
                   name="email"
                   type="email" 
                   placeholder="Email address" 
+                  aria-label="Email address"
                   required
                   className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
@@ -137,13 +140,14 @@ export default function ContactPage() {
                   name="phone"
                   type="tel" 
                   placeholder="Phone number" 
+                  aria-label="Phone number"
                   className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all"
                 />
               </div>
 
               {/* select placeholder */}
               <div className="relative">
-                <select name="service" defaultValue="" className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 text-[14px] text-white/70 outline-none transition-all appearance-none cursor-pointer">
+                <select name="service" defaultValue="" aria-label="Service" className="flex h-[54px] w-full rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 text-[14px] text-white/70 outline-none transition-all appearance-none cursor-pointer">
                   <option value="" disabled>Select a service</option>
                   <option value="web">Web Development</option>
                   <option value="ui">UI/UX Design</option>
@@ -161,6 +165,7 @@ export default function ContactPage() {
               <textarea 
                 name="message"
                 placeholder="Type your message here." 
+                aria-label="Project message"
                 rows={5}
                 required
                 className="flex w-full min-h-[154px] rounded-lg border border-white/10 focus:border-accent bg-[#1c1c22] px-4 py-5 text-[14px] text-white/70 placeholder:text-white/50 outline-none transition-all resize-none"

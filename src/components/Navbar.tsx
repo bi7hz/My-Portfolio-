@@ -31,7 +31,7 @@ export default function Navbar() {
           </div>
 
           {/* Center Links (Desktop) */}
-          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2">
+          <nav aria-label="Primary navigation" className="hidden md:flex absolute left-1/2 -translate-x-1/2">
             <ul className="flex items-center gap-8 xl:gap-9">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
@@ -57,7 +57,7 @@ export default function Navbar() {
                 );
               })}
             </ul>
-          </div>
+          </nav>
 
           {/* Right Button (Desktop) */}
           <div className="hidden md:flex items-center">
@@ -72,9 +72,12 @@ export default function Navbar() {
           {/* Hamburger (Mobile) */}
           <div className="flex justify-end md:hidden">
             <button
+              type="button"
               onClick={() => setMenuOpen(!menuOpen)}
               className="w-8 h-8 flex flex-col items-center justify-center gap-1.5 z-50"
-              aria-label="Toggle menu"
+              aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
             >
               <motion.span animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} className="block w-8 h-[2px] bg-accent rounded-full" />
               <motion.span animate={menuOpen ? { opacity: 0 } : { opacity: 1 }} className="block w-8 h-[2px] bg-accent rounded-full" />
@@ -89,6 +92,9 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            id="mobile-navigation"
+            role="navigation"
+            aria-label="Mobile navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}

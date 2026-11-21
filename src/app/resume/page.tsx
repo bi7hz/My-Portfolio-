@@ -30,8 +30,8 @@ const education = {
 
 const skills = {
   title: "My skills",
-  descLine1: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  descLine2: "Scelerisque consequat, faucibus et, et.",
+  descLine1: "A modern toolkit for building responsive, accessible interfaces.",
+  descLine2: "Supported by AI, Python, and thoughtful product design.",
   skillList: [
     {
       name: "HTML",
@@ -235,9 +235,9 @@ export default function ResumePage() {
           <div className="w-full lg:w-[34%] flex-shrink-0 flex flex-col gap-7">
             {/* Heading & paragraph */}
             <div className="text-center lg:text-left">
-            <h2 className="text-[34px] lg:text-[38px] font-bold text-white leading-[1.08] mb-4">
+            <h1 className="text-[34px] lg:text-[38px] font-bold text-white leading-[1.08] mb-4">
             Why hire me?
-            </h2>
+            </h1>
             <p className="text-white/60 text-[14px] leading-[1.75] max-w-[420px] mx-auto lg:mx-0">
               I build modern, responsive web applications
               <br />
