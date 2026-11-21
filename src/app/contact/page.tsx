@@ -33,7 +33,7 @@ const info = [
       </svg>
     ),
     title: "Address",
-    description: "Cairo, Egypt",
+    description: "Homs, Syria",
   },
 ];
 
