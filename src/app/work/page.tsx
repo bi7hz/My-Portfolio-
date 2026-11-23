@@ -23,6 +23,17 @@ const projects = [
   },
   {
     num: "02",
+    category: "Multi-Restaurant SaaS",
+    title: "Restaurant Ordering Platform",
+    description: "Arabic-first multi-restaurant SaaS platform for digital menus, QR ordering, customizable restaurant storefronts, interactive templates, and restaurant management experiences.",
+    tech: "Next.js, React, TypeScript, Tailwind CSS",
+    live: "https://restaurant-ordering-platform-lake.vercel.app/",
+    github: "https://github.com/bi7hz/restaurant-ordering-platform",
+    image: "/projects/restaurant-ordering-platform.webp",
+    external: true,
+  },
+  {
+    num: "03",
     category: "Fitness Platform",
     title: "KINOVA CLUB",
     description: "A premium bilingual fitness membership platform with immersive visuals, dynamic interactions, and a modern responsive experience.",
@@ -33,7 +44,7 @@ const projects = [
     external: true,
   },
   {
-    num: "03",
+    num: "04",
     category: "Full Stack",
     title: "E-Commerce Platform",
     description: "A full-stack e-commerce solution with real-time inventory management, secure payment processing, and an intuitive admin dashboard built for scale.",
@@ -43,7 +54,7 @@ const projects = [
     image: thumb1,
   },
   {
-    num: "04",
+    num: "05",
     category: "Frontend",
     title: "Portfolio Dashboard",
     description: "A beautifully designed analytics dashboard for tracking projects, skills, and professional growth with interactive data visualisations.",
@@ -53,7 +64,7 @@ const projects = [
     image: thumb2,
   },
   {
-    num: "05",
+    num: "06",
     category: "Landing Page",
     title: "SaaS Landing Page",
     description: "A high-converting SaaS landing page with interactive animations, feature showcases, and a seamless onboarding flow optimised for conversions.",
@@ -221,15 +232,17 @@ export default function WorkPage() {
                 transition={{ duration: 0.28, ease: "easeOut" }}
                 className="absolute inset-0"
               >
-                <Image
-                  fill
-                  src={project.image}
-                  alt={project.title}
-                  draggable={false}
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  sizes="(min-width: 1280px) 600px, 100vw"
-                  preload={current === 0}
-                />
+                {project.image && (
+                  <Image
+                    fill
+                    src={project.image}
+                    alt={project.title}
+                    draggable={false}
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    sizes="(min-width: 1280px) 600px, 100vw"
+                    preload={current === 0}
+                  />
+                )}
               </motion.div>
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1c1c22]/35 via-transparent to-transparent" />
             </motion.div>
